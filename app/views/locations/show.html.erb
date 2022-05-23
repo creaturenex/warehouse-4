@@ -2,9 +2,23 @@
 
 <%= render @location %>
 
+<% if @location.inventory %>
+  <h3>Inventory at Location</h3>
+  <%= render "inventory/show", inventory: @location.inventory %>
+<% end %>
+
 <div>
+  <%= link_to "Add Inventory", new_inventory_path(@location) %> |
   <%= link_to "Edit this location", edit_location_path(@location) %> |
   <%= link_to "Back to locations", locations_path %>
 
   <%= button_to "Destroy this location", @location, method: :delete %>
 </div>
+
+
+
+add inventory will take me to inventory new form create for prepo
+adding new location
+
+form field
+inlude location id

@@ -13,6 +13,7 @@ class InventoryController < ApplicationController
 
   # GET /inventory/new
   def new
+    @location
     @inventory = @location.build_inventory
   end
 
@@ -22,11 +23,11 @@ class InventoryController < ApplicationController
 
   # POST /inventory or /inventory.json
   def create
-    @inventory = @location.create_inventory(inventory_params)
+    @inventory = @location.build_inventory(inventory_params)
 
     respond_to do |format|
       if @inventory.save
-        format.html { redirect_to inventory_url(@inventory), notice: "Inventory was successfully created." }
+        format.html { redirect_to location_path(@location), notice: "Inventory was successfully created." }
         format.json { render :show, status: :created, location: @inventory }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +40,7 @@ class InventoryController < ApplicationController
   def update
     respond_to do |format|
       if @inventory.update(inventory_params)
-        format.html { redirect_to inventory_url(@inventory), notice: "Inventory was successfully updated." }
+        format.html { redirect_to inventory_path(@location), notice: "Inventory was successfully updated." }
         format.json { render :show, status: :ok, location: @inventory }
       else
         format.html { render :edit, status: :unprocessable_entity }

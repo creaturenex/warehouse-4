@@ -1,9 +1,9 @@
 <p style="color: green"><%= notice %></p>
-
+<%= params.inspect %>
 <%= render @inventory %>
 
 <div>
-  <%= link_to "Edit this inventory", edit_inventory_path(@inventory) %> |
+  <%= link_to "Edit this inventory", edit_inventory_path(@inventory.id) %> |
   <%= link_to "Back to inventory", inventory_index_path %>
 
   <%= button_to "Destroy this inventory", @inventory, method: :delete %>
