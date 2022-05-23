@@ -1,9 +1,10 @@
 class InventoryController < ApplicationController
+  before_action :get_location
   before_action :set_inventory, only: %i[ show edit update destroy ]
 
   # GET /inventory or /inventory.json
   def index
-    @inventory = Inventory.all
+    @inventory = @location.inventory
   end
 
   # GET /inventory/1 or /inventory/1.json
@@ -12,7 +13,7 @@ class InventoryController < ApplicationController
 
   # GET /inventory/new
   def new
-    @inventory = Inventory.new
+    @inventory = @location.build_inventory
   end
 
   # GET /inventory/1/edit
@@ -21,7 +22,7 @@ class InventoryController < ApplicationController
 
   # POST /inventory or /inventory.json
   def create
-    @inventory = Inventory.new(inventory_params)
+    @inventory = @location.create_inventory(inventory_params)
 
     respond_to do |format|
       if @inventory.save
@@ -58,9 +59,13 @@ class InventoryController < ApplicationController
   end
 
   private
+    def get_location
+      @location = Location.find(params[:location_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_inventory
-      @inventory = Inventory.find(params[:id])
+      @inventory = @location.inventory.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
